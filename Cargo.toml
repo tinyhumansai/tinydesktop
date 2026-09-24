@@ -18,7 +18,7 @@ exclude = ["vendor", "worktrees"]
 # true`, so the version the release workflow bumps is written in exactly one
 # place and every crate moves together.
 [workspace.package]
-version = "0.3.0"
+version = "0.4.0"
 edition = "2024"
 rust-version = "1.89"
 license = "GPL-3.0-only"
