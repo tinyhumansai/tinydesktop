@@ -1855,6 +1855,7 @@ fn runtime_configuration_covers_all_providers_and_rejects_empty_keys() {
         JevProvider::TypeSafe,
         JevProvider::OpenRouter,
         JevProvider::TinyHumansOpenRouter,
+        JevProvider::OpenJev,
     ] {
         let mut request = JevConfig::new("key");
         request.provider = provider;

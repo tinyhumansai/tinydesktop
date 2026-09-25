@@ -78,6 +78,8 @@ impl JevRuntime {
             JevProvider::TinyHumansOpenRouter => {
                 ClientConfig::tinyhumans_openrouter(request.api_key())
             }
+            JevProvider::OpenJev => ClientConfig::new(request.api_key())
+                .with_endpoint_url("https://api.openjev.sh/v1/systemone"),
         };
         if let Some(endpoint) = &request.endpoint_url {
             if !trusted_endpoint(request.provider, endpoint) {
@@ -107,7 +109,7 @@ impl JevRuntime {
                 model: request
                     .model
                     .clone()
-                    .unwrap_or_else(|| "jev-latest".to_owned()),
+                    .unwrap_or_else(|| default_model(request.provider).to_owned()),
                 endpoint_url: request.endpoint_url.clone(),
             },
             pending: Arc::new(Mutex::new(HashMap::new())),
@@ -143,6 +145,13 @@ impl Evaluator for Client {
     }
 }
 
+fn default_model(provider: JevProvider) -> &'static str {
+    match provider {
+        JevProvider::OpenJev => "openjev",
+        _ => "jev-latest",
+    }
+}
+
 fn trusted_endpoint(provider: JevProvider, endpoint: &str) -> bool {
     let approved = match provider {
         JevProvider::TypeSafe => "https://api.typesafe.ai/v1/systemone",
@@ -150,6 +159,7 @@ fn trusted_endpoint(provider: JevProvider, endpoint: &str) -> bool {
         JevProvider::TinyHumansOpenRouter => {
             "https://api.tinyhumans.ai/agent-integrations/openrouter/systemone"
         }
+        JevProvider::OpenJev => "https://api.openjev.sh/v1/systemone",
     };
     if endpoint == approved {
         return true;
