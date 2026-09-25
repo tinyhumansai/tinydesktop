@@ -33,7 +33,7 @@ repository = "https://github.com/tinyhumansai/tinydesktop"
 tinydesktop-bus = { path = "crates/tinydesktop-bus" }
 # Native typed Jev transport used by the desktop-control policy. Vendored as a
 # pinned submodule so provider validation and retry behavior are reproducible.
-tinyjevclient = { path = "vendor/tinyjevclient/crates/tinyjevclient" }
+tinyjevclient = "=0.2.1"
 # The desktop automation engine this module wraps: accessibility-tree
 # observation, ref allocation, and the command implementations behind every
 # member of the bus interface. Vendored as the `vendor/agent-desktop` submodule
@@ -47,13 +47,14 @@ agent-desktop-linux = { path = "vendor/agent-desktop/crates/linux" }
 # TinyBus defines the message types, interface macro, and frozen module ABI
 # used by the generated integration. Socket and CLI features are unnecessary
 # here.
-tinybus = { path = "vendor/tinybus/crates/tinybus", version = "0.1.2", default-features = false, features = [
+tinybus = { version = "=0.1.2", default-features = false, features = [
     "macros",
     "modules",
 ] }
 # The module-side SDK owns the isolated runtime and exports the ABI entrypoints
 # required by TinyBus's dynamic loader.
-tinybus-module = { path = "vendor/tinybus/crates/tinybus-module", version = "0.1.2" }
+tinybus-module = "=0.1.2"
+
 # Derive macros for the crate-wide error type in `crates/tinydesktop/src/error/`.
 # Every dependency entry should carry a comment like this one saying why it is
 # here.
@@ -103,3 +104,8 @@ private_intra_doc_links = "warn"
 lto = "thin"
 codegen-units = 1
 strip = "debuginfo"
+
+[patch.crates-io]
+tinybus = { path = "vendor/tinybus/crates/tinybus" }
+tinybus-module = { path = "vendor/tinybus/crates/tinybus-module" }
+tinyjevclient = { path = "vendor/tinyjevclient/crates/tinyjevclient" }

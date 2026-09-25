@@ -44,7 +44,7 @@ async fn setup(connection: Connection, config: Value) -> TinyBusResult<()> {
     Ok(())
 }
 
-tinybus_module::module_export! {
+tinybus_module::module_export_optional_static! {
     setup = setup,
     config = serde_json::Value,
     // Two: one to run a blocking command on, and one to keep answering on
