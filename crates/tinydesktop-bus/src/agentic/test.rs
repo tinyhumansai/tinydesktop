@@ -35,6 +35,10 @@ fn every_agentic_enum_pins_its_wire_spelling() {
         serde_json::to_value(JevProvider::TinyHumansOpenRouter).unwrap(),
         json!("tiny_humans_open_router")
     );
+    assert_eq!(
+        serde_json::to_value(JevProvider::OpenJev).unwrap(),
+        json!("open_jev")
+    );
     for (operation, wire) in [
         (JevOperation::Click, "CLICK"),
         (JevOperation::TypeText, "TYPE_TEXT"),

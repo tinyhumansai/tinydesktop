@@ -15,6 +15,8 @@ pub enum JevProvider {
     OpenRouter,
     /// Tiny Humans' authenticated `OpenRouter` proxy.
     TinyHumansOpenRouter,
+    /// OpenJEV's free public System One API (Jev-compatible).
+    OpenJev,
 }
 
 /// Configures the Jev client retained by the loaded module.
